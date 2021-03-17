@@ -1,0 +1,154 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100%;
+    background-color: #111;
+}
+
+h1{
+    font-size: 3rem;
+    font-weight: 50;
+    margin: 1rem 0 3rem;
+    text-align: center;
+    color: #fff;
+}
+
+.styling{
+    font-weight: 800;
+    color: lime;
+}
+
+.input_div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.input_div .input{
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    width: 75%;
+    padding: 10px;
+    float: left;
+    font-size: 16px;
+    border: 3px solid green;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.addButton{
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    outline: none;
+    border: none;
+    background-color: #fff;
+    color:#fff;
+    margin: 2.5rem;
+    background-color: lime;
+    cursor: pointer;
+}
+
+.addButton:hover{
+    opacity: 0.7;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.item{
+    padding: 0.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 4px solid #fff;
+}
+
+.item_input{
+    background: none;
+    outline: none;
+    color: #fff;
+    border: none;
+    width: 350px;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+}
+
+.addButton{
+    font-size: 1.4rem;
+    margin: 0 0.75rem;
+    background: none;
+    outline: none;
+    color: lime;
+    border: none;
+    font-weight: bold;
+}
+
+.removeButton{
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    background: none;
+    outline: none;
+    color: #e00;
+    border: none;
+    font-weight: bold;
+}
+
+.editButton{
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    background: none;
+    outline: none;
+    color:blue;
+    border: none;
+    font-weight: bold;
+}
+
+.markButton{
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    background: none;
+    outline: none;
+    color:greenyellow;
+    border: none;
+    font-weight: bold;
+}
+
+table td{
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 2.0rem;
+    text-align: center;
+}
+button:hover{
+    cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
