@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Todo List</title>
+    <link rel="stylesheet" type="text/css" href="TodoList.css">
+</head>
+
+<body>
+    <h1>MY <span class="styling"> TODO </span> LIST</h1>
+    <div class="input_div">
+        <input class="input" type="text" placeholder="Add Todo Here ....... " id="todoInput">
+        <button class="addButton" onclick="addNewTodo()">ADD</button>
+    </div>
+    <div class="container">
+        <div class="item" id="record">
+            <table id="table">
+            </table>
+        </div>
+    </div>
+    <script>
+        document.getElementById("todoInput").focus();
+        var ID = -1;
+        var obj;
+        let httpRequest = new XMLHttpRequest();
+        httpRequest.open("GET", "http://localhost:8080/todos");
+        httpRequest.send();
+        httpRequest.onload = function () {
+            obj = JSON.parse(httpRequest.responseText);
+            console.log(obj);
+            loadData();
+        }
+        function loadData() {
+            var index = 0;
+            var table = document.getElementById("table");
+            for (index = 0; index < obj.length; index++) {
+                var done = obj[index].done;
+                var row = table.insertRow(index);
+                var cell1 = row.insertCell(0);
+                if (done) {
+                    cell1.style.color = "green";
+                }else{
+                    cell1.style.color = "white";
+                }
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                cell1.innerHTML = obj[index].name
+                cell2.innerHTML = "<button class = 'editButton' onclick = 'editTodo(this)' value=" + index + ">&emsp;EDIT</button>";
+                cell3.innerHTML = "<button class = 'removeButton' onclick='removeTodo(this)' value=" + obj[index].id + ">REMOVE</button>";
+                cell4.innerHTML = "<button class = 'markButton' onclick='markTodo(this)' value=" + index + ">DONE/UNDO</button>";
+            }
+        }
+
+        function addNewTodo() {
+            var name = document.getElementById('todoInput').value;
+            if (name == '') {
+                document.getElementById("todoInput").style.borderColor = "red";
+                return;
+            }
+            url = "http://localhost:8080/todos";
+            if (ID == -1) {
+                fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name: name,
+                    }),
+                    headers: {
+                        "Content-Type": "application/json; charset=UTF-8"
+                    }
+                }).then(function (response) {
+                    window.location.href = "/home.html";
+                    return response;
+                }).then(function (data) {
+                    console.log(data);
+                });
+            }
+            else {
+                fetch(url, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        id: ID,
+                        name: name,
+                        done: true
+                    }),
+                    headers: {
+                        "Content-Type": "application/json; charset=UTF-8"
+                    }
+                }).then(function (response) {
+                    ID = -1;
+                    window.location.href = "/home.html";
+                    return response;
+                }).then(function (data) {
+                    ID = -1;
+                    console.log(data);
+                });
+            }
+
+        }
+        function removeTodo(button) {
+            var id = button.value;
+            url = "http://localhost:8080/todos/" + id;
+            httpRequest.open("DELETE", url);
+            httpRequest.send();
+            httpRequest.onload = function () {
+                console.log(obj);
+                window.location.href = "/home.html";
+            }
+        }
+        function editTodo(button) {
+            var index = button.value;
+            ID = obj[index].id;
+            var name = obj[index].name
+            document.getElementById("todoInput").value = name;
+            document.getElementById("todoInput").focus();
+        }
+        function markTodo(button) {
+            var table = document.getElementById("table");
+            var index = button.value;
+            var done = obj[index].done;
+            console.log(done);
+            url = "http://localhost:8080/todos";
+            fetch(url, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    id: obj[index].id,
+                    name: obj[index].name,
+                    done: !done
+                }),
+                headers: {
+                    "Content-Type": "application/json; charset=UTF-8"
+                }
+            }).then(function (response) {
+                window.location.href = "/home.html";
+                return response;
+            }).then(function (data) {
+                console.log(data);
+            });
+        }
+
+    </script>
+</body>
+
+</html>
